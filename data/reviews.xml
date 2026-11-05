@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reviews>
+    <review><review_id>R001</review_id><product_id>1</product_id><customer_id>C001</customer_id><customer_name>Nguyen Van A</customer_name><rating>5</rating><comment>Very good</comment></review>
+    <review><review_id>R002</review_id><product_id>1</product_id><customer_id>C002</customer_id><customer_name>Tran Thi B</customer_name><rating>4</rating><comment>Good quality</comment></review>
+    <review><review_id>R003</review_id><product_id>2</product_id><customer_id>C002</customer_id><customer_name>Tran Thi B</customer_name><rating>5</rating><comment>Nice product</comment></review>
+    <review><review_id>R004</review_id><product_id>3</product_id><customer_id>C001</customer_id><customer_name>Nguyen Van A</customer_name><rating>3</rating><comment>Average</comment></review>
+    <review><review_id>R005</review_id><product_id>4</product_id><customer_id>C002</customer_id><customer_name>Tran Thi B</customer_name><rating>4</rating><comment>Good</comment></review>
+    <review><review_id>R006</review_id><product_id>5</product_id><customer_id>C001</customer_id><customer_name>Nguyen Van A</customer_name><rating>5</rating><comment>Excellent</comment></review>
+    <review><review_id>R007</review_id><product_id>6</product_id><customer_id>C002</customer_id><customer_name>Tran Thi B</customer_name><rating>4</rating><comment>Good</comment></review>
+</reviews>

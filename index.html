@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BW08 - eCommerce Mini Project</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand"><span class="brand-mark">e</span><div><strong>NNU Store</strong><small>Business Web Development · BW08</small></div></div>
+        <div class="header-actions">
+            <button class="btn btn-light" onclick="showSection('productsSection')">Trang chủ</button>
+            <button class="btn btn-light" onclick="toggleMiniCart()">Giỏ hàng <span id="cartCount" class="count">0</span></button>
+            <button class="btn btn-primary" onclick="openLogin()">Đăng nhập</button>
+            <span id="userStatus" class="user-status">Khách</span>
+        </div>
+        <div id="miniCart" class="mini-cart hidden">
+            <div class="mini-cart-head"><strong>Giỏ hàng nhanh</strong><button class="icon-btn" onclick="toggleMiniCart()">×</button></div>
+            <div id="miniCartItems"></div>
+            <div class="mini-cart-total"><span>Tổng cộng</span><strong id="miniCartTotal">0 đ</strong></div>
+            <button class="btn btn-primary btn-block" onclick="openCheckout()">Thanh toán</button>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="#" onclick="showSection('productsSection');return false;">Sản phẩm</a>
+        <a href="#" onclick="showSection('adminSection');return false;">Quản trị</a>
+        <a href="#" onclick="openLogin();return false;">Tài khoản</a>
+    </nav>
+
+    <main class="page-shell">
+        <section id="productsSection" class="content-section">
+            <div class="section-heading"><div><span class="eyebrow">DISCOVER</span><h2>Sản phẩm</h2></div><div class="toolbar"><button class="btn btn-outline" onclick="loadProducts()">Tải dữ liệu API</button><button class="btn btn-outline" onclick="exportProductsXML()">Xuất products.xml</button></div></div>
+
+            <div class="search-layout">
+                <aside class="search-panel">
+                    <h3>Tìm kiếm nâng cao</h3>
+                    <form id="searchForm">
+                        <label for="searchName">Tên sản phẩm</label>
+                        <input type="text" id="searchName" placeholder="Nhập tên sản phẩm">
+                        <label for="searchCategory">Danh mục</label>
+                        <select id="searchCategory"><option value="">Tất cả danh mục</option></select>
+                        <label for="searchColor">M&#224;u s&#7855;c</label>
+                        <select id="searchColor">
+                            <option value="">T&#7845;t c&#7843; m&#224;u</option>
+                            <option value="Black">Black</option>
+                            <option value="White">White</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Gray">Gray</option>
+                            <option value="Brown">Brown</option>
+                            <option value="Red">Red</option>
+                        </select>
+                        <label for="searchRating">&#272;&#225;nh gi&#225; t&#7889;i thi&#7875;u</label>
+                        <select id="searchRating">
+                            <option value="">T&#7845;t c&#7843; m&#7913;c &#273;&#225;nh gi&#225;</option>
+                            <option value="1">T&#7915; 1 sao</option>
+                            <option value="2">T&#7915; 2 sao</option>
+                            <option value="3">T&#7915; 3 sao</option>
+                            <option value="4">T&#7915; 4 sao</option>
+                            <option value="5">5 sao</option>
+                        </select>
+                        <div class="two-fields"><div><label for="minPrice">Giá từ</label><input type="number" id="minPrice" min="0" step="0.01" placeholder="0"></div><div><label for="maxPrice">Đến</label><input type="number" id="maxPrice" min="0" step="0.01" placeholder="Không giới hạn"></div></div>
+                        <label for="searchEmail">Email liên hệ (tùy chọn)</label>
+                        <input type="email" id="searchEmail" placeholder="name@example.com">
+                        <small id="searchError" class="error-text"></small>
+                        <button class="btn btn-primary btn-block" type="submit">Tìm sản phẩm</button>
+                        <button class="btn btn-ghost btn-block" type="button" onclick="resetSearch()">Xóa bộ lọc</button>
+                    </form>
+                </aside>
+                <div class="products-area">
+                    <div class="products-meta"><span id="resultMessage">Nhấn “Tải dữ liệu API” để tải sản phẩm.</span><select id="sortProducts" onchange="renderProducts()"><option value="default">Sắp xếp mặc định</option><option value="priceAsc">Giá tăng dần</option><option value="priceDesc">Giá giảm dần</option><option value="rating">Đánh giá cao</option></select></div>
+                    <div id="productGrid" class="product-grid"></div>
+                    <div id="emptyMessage" class="empty-state hidden">Không tìm thấy sản phẩm phù hợp.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="adminSection" class="content-section hidden">
+            <div class="section-heading"><div><span class="eyebrow">MANAGEMENT</span><h2>Admin Dashboard</h2></div><span id="adminAccess" class="access-pill">Chưa đăng nhập</span></div>
+            <div id="adminLoginHint" class="notice">Đăng nhập bằng tài khoản Sales Manager để xem trang quản trị. Demo: <b>admin / 123</b>.</div>
+            <div id="adminDashboard" class="hidden">
+                <div class="stats-grid">
+                    <div class="stat-card"><span>Tổng đơn hàng</span><strong id="statOrders">0</strong></div>
+                    <div class="stat-card"><span>Doanh thu</span><strong id="statRevenue">0 đ</strong></div>
+                    <div class="stat-card"><span>Sản phẩm đã bán</span><strong id="statUnits">0</strong></div>
+                </div>
+                <div class="admin-columns">
+                    <div class="panel"><h3>Danh sách đơn hàng</h3><div class="table-wrap"><table><thead><tr><th>Mã đơn</th><th>Ngày</th><th>Khách hàng</th><th>Tổng tiền</th></tr></thead><tbody id="ordersTable"></tbody></table></div></div>
+                    <div class="panel"><h3>Sản phẩm bán chạy</h3><div id="bestSellerList"></div></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer"><div><strong>NNU Store</strong><p>Website thực hành môn Phát triển Web Kinh doanh · Mã đề BW08</p></div><div class="student-info">Nguyễn Nhã Uyên · MSSV: K244161823</div></footer>
+
+    <div id="ratingDetailModal" class="modal hidden"><div class="modal-card modal-small"><button class="modal-close" onclick="closeRatingDetails()" aria-label="Close rating details">&times;</button><h2 id="ratingDetailTitle">Rating Detail</h2><div id="ratingDetailContent" class="rating-detail-list"></div></div></div>
+    <div id="quickViewModal" class="modal hidden"><div class="modal-card"><button class="modal-close" onclick="closeQuickView()">×</button><div id="quickViewContent"></div></div></div>
+    <div id="loginModal" class="modal hidden"><div class="modal-card modal-small"><button class="modal-close" onclick="closeLogin()">×</button><h2>Đăng nhập</h2><form id="loginForm"><label>Tên đăng nhập</label><input id="loginUsername" required><label>Mật khẩu</label><input id="loginPassword" type="password" required><p id="loginError" class="error-text"></p><button class="btn btn-primary btn-block" type="submit">Đăng nhập</button></form><small>Demo: admin/123 (Sales Manager), staff/123, customer1/123</small></div></div>
+    <div id="checkoutModal" class="modal hidden"><div class="modal-card modal-small"><button class="modal-close" onclick="closeCheckout()">×</button><h2>Thông tin giao hàng</h2><form id="checkoutForm"><label>Họ và tên</label><input id="fullName" required><small id="nameError" class="error-text"></small><label>Số điện thoại</label><input id="phone" required placeholder="0901234567"><small id="phoneError" class="error-text"></small><label>Email</label><input id="email" required><small id="emailError" class="error-text"></small><label>Địa chỉ</label><textarea id="address" required rows="2"></textarea><small id="addressError" class="error-text"></small><div class="checkout-total">Tổng thanh toán: <strong id="checkoutTotal">0 đ</strong></div><button class="btn btn-primary btn-block" type="submit">Xác nhận thanh toán</button></form></div></div>
+    <div id="toast" class="toast hidden"></div>
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/payment.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

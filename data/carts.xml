@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<carts>
+    <cart>
+        <invoice_id>HD-DEMO-001</invoice_id>
+        <created_date>2026-11-05T09:00:00</created_date>
+        <employee_id>E001</employee_id>
+        <customer_id>C001</customer_id>
+        <customer_name>Nguyen Van A</customer_name>
+        <details>
+            <detail><product_id>1</product_id><product_name>Demo Backpack</product_name><color>Black</color><size>M</size><quantity>2</quantity><unit_price>109.95</unit_price><subtotal>219.90</subtotal></detail>
+        </details>
+        <total_amount>219.90</total_amount>
+    </cart>
+</carts>

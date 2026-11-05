@@ -1,0 +1,18 @@
+[
+    {
+        "employee_id": "E001",
+        "username": "admin",
+        "password": "123",
+        "full_name": "Administrator Demo",
+        "email": "admin@example.com",
+        "position": "Sales Manager"
+    },
+    {
+        "employee_id": "E002",
+        "username": "staff",
+        "password": "123",
+        "full_name": "Sales Staff Demo",
+        "email": "staff@example.com",
+        "position": "Sales Staff"
+    }
+]
